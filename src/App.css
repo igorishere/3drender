@@ -1,0 +1,25 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto-Regular.ttf');
+} 
+
+#App{
+    padding:50px; 
+    color: #fff;
+    font-family: 'Roboto';
+    display: flex;
+    flex-direction: column;  
+}
+
+h1{
+    text-align: center;
+}
+ 
+#renderContainer{ 
+    width: 100%;
+    max-width: 1000px;
+    height: 600px; 
+    margin: 20px 0px;  
+    align-self: center;
+    background-color: purple;
+}
