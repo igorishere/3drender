@@ -10,8 +10,13 @@ function init(){
   let cube = CreateCube();
 
   scene.add(cube);
+  scene.add(ambLight);
+  scene.add(dirLight);
 
-  camera.position.z = 5;
+  ambLight.position.set(0,10,0);
+  dirLight.position.set(5,10,7.5);
+
+  camera.position.set(0,0,5);
 }
 
 
@@ -22,8 +27,8 @@ function animate(){
 }
 
 function CreateCube(){
-  const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-  const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+  const geometry = new THREE.BoxGeometry( 1,1,1 );
+  const material = new THREE.MeshPhongMaterial( { color: 0x00ff00 } );
   return new THREE.Mesh( geometry, material );
 }
 
@@ -34,6 +39,9 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, width / height, 0.1, 1000 );
 const renderer = new THREE.WebGLRenderer();
 const orbitControls = new OrbitControls(camera,renderer.domElement); 
+const ambLight = new THREE.AmbientLight( 0x404040 );
+const dirLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+
 
 function App() {
 
