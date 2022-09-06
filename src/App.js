@@ -11,12 +11,17 @@ function init(){
 
   scene.add(cube);
   scene.add(ambLight);
-  scene.add(dirLight);
+  scene.add(dirLightUp);
+  scene.add(dirLightDown);
 
   ambLight.position.set(0,10,0);
-  dirLight.position.set(5,10,7.5);
+  dirLightUp.position.set(5,10,7.5);
+  dirLightDown.position.set(-5,-10,-7.5);
 
   camera.position.set(0,0,5);
+
+  orbitControls.enablePan = false;
+  orbitControls.enableDamping = true;
 }
 
 
@@ -40,7 +45,8 @@ const camera = new THREE.PerspectiveCamera( 75, width / height, 0.1, 1000 );
 const renderer = new THREE.WebGLRenderer();
 const orbitControls = new OrbitControls(camera,renderer.domElement); 
 const ambLight = new THREE.AmbientLight( 0x404040 );
-const dirLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+const dirLightUp = new THREE.DirectionalLight( 0xffffff, 0.5 );
+const dirLightDown = new THREE.DirectionalLight( 0xffffff, 0.5 );
 
 
 function App() {
