@@ -17,8 +17,8 @@ h1{
  
 #renderContainer{ 
     width: 100%;
-    max-width: 1000px;
-    height: 600px; 
+    max-width: 1000px; 
+    height: 70vh;
     margin: 20px 0px;  
     align-self: center; 
 }

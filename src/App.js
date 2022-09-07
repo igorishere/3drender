@@ -1,10 +1,11 @@
  import './App.css';
  import * as THREE from 'three';
  import {useEffect} from 'react';
- import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls' 
 
- 
-function init(){
+ let scene,camera,renderer,orbitControls,ambLight,dirLightUp,dirLightDown, width,height,aspectRatio;
+  
+function Init(){
   renderer.setSize( width, height);
 
   let cube = CreateCube();
@@ -18,43 +19,58 @@ function init(){
   dirLightUp.position.set(5,10,7.5);
   dirLightDown.position.set(-5,-10,-7.5);
 
-  camera.position.set(0,0,5);
+  camera.position.set( 5, 2, 3 )
 
   orbitControls.enablePan = false;
   orbitControls.enableDamping = true;
 }
 
 
-function animate(){
-  requestAnimationFrame( animate );
+function Animate(){
+  requestAnimationFrame( Animate );
   orbitControls.update(); 
 	renderer.render( scene, camera );
 }
 
 function CreateCube(){
-  const geometry = new THREE.BoxGeometry( 1,1,1 );
-  const material = new THREE.MeshPhongMaterial( { color: 0x00ff00 } );
+   const geometry = new THREE.BoxGeometry( 1,1,1 );
+   const material = new THREE.MeshPhongMaterial( { color: 0x00ff00 } );
   return new THREE.Mesh( geometry, material );
 }
 
-const width = 1000;
-const height = 600;
+ function SetDefaultProperties(){
+  width = document.getElementById('renderContainer').clientWidth;
+  height = document.getElementById('renderContainer').clientHeight;
+  aspectRatio = width/height;
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, width / height, 0.1, 1000 );
-const renderer = new THREE.WebGLRenderer();
-const orbitControls = new OrbitControls(camera,renderer.domElement); 
-const ambLight = new THREE.AmbientLight( 0x404040 );
-const dirLightUp = new THREE.DirectionalLight( 0xffffff, 0.5 );
-const dirLightDown = new THREE.DirectionalLight( 0xffffff, 0.5 );
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.1, 1000 );
+  renderer = new THREE.WebGLRenderer();
+  orbitControls = new OrbitControls(camera,renderer.domElement); 
+  ambLight = new THREE.AmbientLight( 0x404040 ,1);
+  dirLightUp = new THREE.DirectionalLight( 0xffffff, 0.8 );
+  dirLightDown = new THREE.DirectionalLight( 0xffffff, 0.8 );
+ }
+
+ window.onresize = () =>{
+  width = document.getElementById('renderContainer').clientWidth;
+  height = document.getElementById('renderContainer').clientHeight;
+  aspectRatio = width/height;
+
+  camera.aspect = aspectRatio;
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(width,height); 
+ }
 
 
 function App() {
 
   useEffect(() => { 
-    init();
+    SetDefaultProperties();
+    Init();
     document.getElementById('renderContainer').appendChild(renderer.domElement);
-    animate();
+    Animate();
   });
 
   return (
