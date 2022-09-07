@@ -14,6 +14,7 @@ function Init(){
   scene.add(ambLight);
   scene.add(dirLightUp);
   scene.add(dirLightDown);
+  scene.background = new THREE.Color("#D5FFFB");
 
   ambLight.position.set(0,10,0);
   dirLightUp.position.set(5,10,7.5);
