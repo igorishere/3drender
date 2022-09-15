@@ -3,12 +3,14 @@
  import {useEffect} from 'react';
  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls' 
 
- let scene,camera,renderer,orbitControls,ambLight,dirLightUp,dirLightDown, width,height,aspectRatio;
+
+ let scene,camera,renderer,orbitControls,ambLight,dirLightUp,dirLightDown, width,height,aspectRatio,lastObject;
   
 function Init(){
   renderer.setSize( width, height);
 
   let cube = CreateCube();
+  lastObject = cube;
 
   scene.add(cube);
   scene.add(ambLight);
@@ -20,7 +22,7 @@ function Init(){
   dirLightUp.position.set(5,10,7.5);
   dirLightDown.position.set(-5,-10,-7.5);
 
-  camera.position.set( 5, 2, 3 )
+  ResetCamera();
 
   orbitControls.enablePan = false;
   orbitControls.enableDamping = true;
@@ -40,8 +42,8 @@ function CreateCube(){
 }
 
  function SetDefaultProperties(){
-  width = document.getElementById('renderContainer').clientWidth;
-  height = document.getElementById('renderContainer').clientHeight;
+  width = document.getElementById('render').clientWidth;
+  height = document.getElementById('render').clientHeight;
   aspectRatio = width/height;
 
   scene = new THREE.Scene();
@@ -51,11 +53,12 @@ function CreateCube(){
   ambLight = new THREE.AmbientLight( 0x404040 ,1);
   dirLightUp = new THREE.DirectionalLight( 0xffffff, 0.8 );
   dirLightDown = new THREE.DirectionalLight( 0xffffff, 0.8 );
+  lastObject = new THREE.Object3D();
  }
 
  window.onresize = () =>{
-  width = document.getElementById('renderContainer').clientWidth;
-  height = document.getElementById('renderContainer').clientHeight;
+  width = document.getElementById('render').clientWidth;
+  height = document.getElementById('render').clientHeight;
   aspectRatio = width/height;
 
   camera.aspect = aspectRatio;
@@ -64,20 +67,42 @@ function CreateCube(){
   renderer.setSize(width,height); 
  }
 
+ function ResetCamera(){
+  camera.position.set( 5, 2, 3 );
+ }
 
-function App() {
+ function AddCube(){
+  var lastObjectPosition = lastObject.position;
+  var {x,y,z} = lastObjectPosition;
+
+  var cube = CreateCube();
+  cube.position.set( x + 3, y, z );
+  lastObject = cube;
+
+  scene.add(cube);
+
+ }
+
+
+function App() { 
 
   useEffect(() => { 
     SetDefaultProperties();
     Init();
-    document.getElementById('renderContainer').appendChild(renderer.domElement);
+    document.getElementById('render').appendChild(renderer.domElement);
     Animate();
   });
 
   return (
     <div id="App">
       <h1>3D render sample</h1>
-      <div id="renderContainer"></div>
+      <div id="renderContainer">
+        <div id="render"></div>
+        <div id="toolBox">
+          <button onClick={() => ResetCamera()}>Reset camera</button>
+          <button onClick={() => AddCube()}>Add cube</button>
+        </div>
+      </div>
     </div>
   );
 }
