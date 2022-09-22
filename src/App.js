@@ -23,9 +23,12 @@ function Init(){
   dirLightDown.position.set(-5,-10,-7.5);
 
   ResetCamera();
+  camera.lookAt(0,0,0);
 
   orbitControls.enablePan = false;
   orbitControls.enableDamping = true;
+  orbitControls.minDistance = 0;
+  orbitControls.maxDistance = 50;
 }
 
 
@@ -47,7 +50,7 @@ function CreateCube(){
   aspectRatio = width/height;
 
   scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.1, 1000 );
+  camera = new THREE.PerspectiveCamera(50, aspectRatio, 1, 10000 );
   renderer = new THREE.WebGLRenderer();
   orbitControls = new OrbitControls(camera,renderer.domElement); 
   ambLight = new THREE.AmbientLight( 0x404040 ,1);
@@ -68,7 +71,7 @@ function CreateCube(){
  }
 
  function ResetCamera(){
-  camera.position.set( 5, 2, 3 );
+  camera.position.set( 5,5,5 ); 
  }
 
  function AddCube(){
@@ -83,6 +86,49 @@ function CreateCube(){
 
  }
 
+ let positionMouseDown = new THREE.Vector2();
+ let positionMouseUp = new THREE.Vector2();
+
+ window.addEventListener('mousedown', (event) => {
+  
+  positionMouseDown.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	positionMouseDown.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+ })
+
+ window.addEventListener('mouseup',(event) =>
+ {
+
+  positionMouseUp.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	positionMouseUp.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+ 
+  HandleClick();
+})
+
+function HandleClick(){
+
+  if(positionMouseUp.distanceTo(positionMouseDown) === 0)
+  {
+
+    const raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera( positionMouseUp, camera );
+    const intersects = raycaster.intersectObjects( scene.children );
+    
+    if(intersects.length > 0)
+    {
+      intersects[0].object.material.color.set( '#f00' );
+    }
+    else
+    {
+        if(scene.children.length > 0)
+        {
+          scene.children.forEach(element => {
+            element.material.color.set('#00FF00');
+          });
+        } 
+    }
+  }
+}
 
 function App() { 
 
