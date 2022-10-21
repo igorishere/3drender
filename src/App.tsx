@@ -2,9 +2,20 @@
  import * as THREE from 'three';
  import {useEffect} from 'react';
  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls' 
+ import { AmbientLight, Camera, DirectionalLight, Mesh, Object3D, Scene } from 'three';
 
 
- let scene,camera,renderer,orbitControls,ambLight,dirLightUp,dirLightDown, width,height,aspectRatio,lastObject;
+ let scene: Scene;
+ let camera: THREE.PerspectiveCamera;
+ let renderer: THREE.WebGLRenderer;
+ let orbitControls: OrbitControls;
+ let ambLight: AmbientLight;
+ let dirLightUp: DirectionalLight;
+ let dirLightDown:DirectionalLight;
+ let width: number;
+ let height: number;
+ let aspectRatio: number;
+ let lastObject: Object3D;
   
 function Init(){
   renderer.setSize( width, height);
@@ -45,8 +56,10 @@ function CreateCube(){
 }
 
  function SetDefaultProperties(){
-  width = document.getElementById('render').clientWidth;
-  height = document.getElementById('render').clientHeight;
+  const element = document.getElementById('render') as HTMLElement;
+
+  width = element?.clientWidth ?? 0;
+  height = element.clientHeight ?? 0;
   aspectRatio = width/height;
 
   scene = new THREE.Scene();
@@ -60,8 +73,10 @@ function CreateCube(){
  }
 
  window.onresize = () =>{
-  width = document.getElementById('render').clientWidth;
-  height = document.getElementById('render').clientHeight;
+  const element = document.getElementById('render') as HTMLElement;
+  
+  width = element.clientWidth;
+  height = element.clientHeight;
   aspectRatio = width/height;
 
   camera.aspect = aspectRatio;
@@ -109,37 +124,46 @@ function HandleClick(){
 
   if(positionMouseUp.distanceTo(positionMouseDown) === 0)
   {
-
     const raycaster = new THREE.Raycaster();
     raycaster.setFromCamera( positionMouseUp, camera );
     const intersects = raycaster.intersectObjects( scene.children );
     
     if(intersects.length > 0)
     {
-      intersects[0].object.material.color.set( '#f00' );
+      const obj = intersects[0].object;
+      
+      if(obj instanceof THREE.Mesh)
+      {
+        obj.material.color.set( '#f00' );
+      }
     }
     else
     {
         if(scene.children.length > 0)
         {
           scene.children.forEach(element => {
-            element.material.color.set('#00FF00');
+
+            if(element instanceof Mesh)
+            {
+              element.material.color.set('#00FF00');
+            }
+
           });
         } 
     }
   }
 }
 
-function App() { 
-
+function App(){ 
   useEffect(() => { 
     SetDefaultProperties();
     Init();
-    document.getElementById('render').appendChild(renderer.domElement);
+    const element = document.getElementById('render') as HTMLElement;
+    element.appendChild(renderer.domElement);
     Animate();
   });
 
-  return (
+   return (
     <div id="App">
       <h1>3D render sample</h1>
       <div id="renderContainer">
@@ -152,5 +176,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
