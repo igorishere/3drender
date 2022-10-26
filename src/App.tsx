@@ -2,7 +2,8 @@
  import * as THREE from 'three';
  import {useEffect} from 'react';
  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls' 
- import { AmbientLight, Camera, DirectionalLight, Mesh, Object3D, Scene } from 'three';
+ import { AmbientLight, DirectionalLight, Mesh, Object3D, Scene } from 'three';
+import Render from './Render';
 
 
  let scene: Scene;
@@ -70,20 +71,7 @@ function CreateCube(){
   dirLightUp = new THREE.DirectionalLight( 0xffffff, 0.8 );
   dirLightDown = new THREE.DirectionalLight( 0xffffff, 0.8 );
   lastObject = new THREE.Object3D();
- }
-
- window.onresize = () =>{
-  const element = document.getElementById('render') as HTMLElement;
-  
-  width = element.clientWidth;
-  height = element.clientHeight;
-  aspectRatio = width/height;
-
-  camera.aspect = aspectRatio;
-  camera.updateProjectionMatrix();
-
-  renderer.setSize(width,height); 
- }
+ } 
 
  function ResetCamera(){
   camera.position.set( 5,5,5 ); 
@@ -155,19 +143,16 @@ function HandleClick(){
 }
 
 function App(){ 
-  useEffect(() => { 
-    SetDefaultProperties();
-    Init();
-    const element = document.getElementById('render') as HTMLElement;
-    element.appendChild(renderer.domElement);
-    Animate();
-  });
+
+var cube = CreateCube();
+
+let objectsToRender: Object3D[] = [cube];
 
    return (
-    <div id="App">
+    <div id="App"> 
       <h1>3D render sample</h1>
-      <div id="renderContainer">
-        <div id="render"></div>
+      <div id="renderContainer"> 
+      <Render objects={objectsToRender}/>
         <div id="toolBox">
           <button onClick={() => ResetCamera()}>Reset camera</button>
           <button onClick={() => AddCube()}>Add cube</button>
