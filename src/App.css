@@ -18,7 +18,7 @@
     height: 30vh; 
 
     background-color: #fff;
-    border-radius: 20px 20px 0px 0px;
+    border-radius: 16px 16px 0px 0px;
 
     display: flex;
     flex-direction: row;
@@ -28,22 +28,34 @@
 }
 
 #informationArea img{
-    flex: 1;   
-    padding: 30px; 
+    flex: 1;
+    object-fit: cover;
+    width: 100%;
+    height: 80px;
+    align-self: flex-end;
 }
 
 #informationAreaText{ 
-    flex: 1;
+    flex: 2;
     padding: 30px 0px 30px 30px; 
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: column; 
+} 
+
+#informationAreaBiggerText{
+    margin: 0px 0px 15px 0px;
+
+    font-size: 18px;
+    font-family: 'Roboto';
+    font-weight: 600;
 }
 
-#informationAreaText #informationAreaBiggerText{
-    font-size: 16px;
-}
-
-#informationAreaText #informationAreaSmallerText{
+#informationAreaSmallerText{
     font-size: 14px;
+    font-family: 'Roboto';
+    font: 400; 
+}
+
+#informationAreaSmallerText p{
+    margin: 0px 0px 5px 0px;
 }

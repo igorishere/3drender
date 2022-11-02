@@ -5,7 +5,7 @@
  
 function CreateCube(){
    const geometry = new  BoxGeometry( 1,1,1 );
-   const material = new MeshPhongMaterial( { color: 0x00ff00 } );
+   const material = new MeshPhongMaterial({ color: 0x151FD3,transparent: true,opacity:0.9 } );
   return new  Mesh( geometry, material );
 } 
 function App(){ 
@@ -22,17 +22,13 @@ let objectsToRender: Object3D[] = [cube];
       <div id="informationArea">
         <div id="informationAreaText">
           <div id="informationAreaBiggerText">
-            Nome: Lorem Ipsum
-            <br /> 
-            Código: LA1234  
+            Lateral esquerda - LT0008A
           </div>
 
           <div id="informationAreaSmallerText">
-            Cliente: Lorem Ipsum
-            <br/> 
-            Projeto: Lorem Ipsum
-            <br/> 
-            Data: 00/00/0000
+            <p>Cliente: Lorem Ipsum</p> 
+            <p>Projeto: Lorem Ipsum</p> 
+            <p>Data: 00/00/0000</p>
           </div>
         </div>
         <img src={logo} alt="logo"/>

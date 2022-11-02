@@ -27,7 +27,7 @@ function Configure(){
   
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(50, aspectRatio, 1, 10000 );
-    renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.WebGLRenderer({alpha: true});
     orbitControls = new OrbitControls(camera,renderer.domElement); 
     ambLight = new THREE.AmbientLight( 0x404040 ,1);
     dirLightUp = new THREE.DirectionalLight( 0xffffff, 0.8 );
@@ -36,12 +36,11 @@ function Configure(){
    }
 
    function Init(){
-    renderer.setSize( width, height);
+    renderer.setSize( width, height);  
 
     scene.add(ambLight);
     scene.add(dirLightUp);
     scene.add(dirLightDown);
-    scene.background = new THREE.Color("#D5FFFB");
   
     ambLight.position.set(0,10,0);
     dirLightUp.position.set(5,10,7.5);
