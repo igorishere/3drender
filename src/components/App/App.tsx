@@ -1,7 +1,8 @@
- import './App.css';  
+ import './style/App.css';  
+ import './style/App@500-800.css';  
  import { Object3D , BoxGeometry , MeshPhongMaterial,Mesh} from 'three';
- import Render from './Render';
- import logo from './assets/images/promob_logo_80x80.png';
+ import Render from '../Render/Render'; 
+import logo from '../../assets/images/promob_logo_80x80.png';
  
 function CreateCube(){
    const geometry = new  BoxGeometry( 1,1,1 );

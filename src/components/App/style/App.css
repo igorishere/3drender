@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Roboto';
-    src: url('assets/fonts/Roboto-Regular.ttf');
+    src: url('../../../assets/fonts/Roboto-Regular.ttf');
 } 
  
 #App{
@@ -15,6 +15,7 @@
 
 #informationArea{
     width: 100%;
+    max-width: 600px;
     height: 30vh; 
 
     background-color: #fff;
@@ -22,9 +23,7 @@
 
     display: flex;
     flex-direction: row;
-    
-    font-family: 'Roboto';
-    font-weight: bold;
+    margin: 0 auto; 
 }
 
 #informationArea img{
@@ -47,7 +46,7 @@
 
     font-size: 18px;
     font-family: 'Roboto';
-    font-weight: 600;
+    font-weight: 900;
 }
 
 #informationAreaSmallerText{
