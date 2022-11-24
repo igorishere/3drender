@@ -18,6 +18,9 @@
     background-color: #fff;
     width: 300px;
     height: 100vh;
+
+    box-shadow: 4px 0px 25px rgba(0, 0, 0, 0.6);
+    border-radius: 0px 16px 16px 0px;
 }
 
 #renderContainer{
