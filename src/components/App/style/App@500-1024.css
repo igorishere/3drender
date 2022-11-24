@@ -1,15 +1,5 @@
-@media (min-width: 480px) and (max-width: 800px)  {
-    #informationArea{
-        width: 100%;
-        height: 30vh; 
-    
-        background-color: #fff;
-        border-radius: 16px 16px 0px 0px;
-    
-        display: flex;
-        flex-direction: row; 
-    }
-
+@media (min-width: 500px) and (max-width: 1024px)  {
+ 
     #informationAreaText{ 
         padding: 40px 0px 40px 40px; 
     }

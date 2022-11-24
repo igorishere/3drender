@@ -2,10 +2,22 @@
     font-family: 'Roboto';
     src: url('../../../assets/fonts/Roboto-Regular.ttf');
 } 
- 
-#App{
+
+#app{
     width: 100%;
-    height: 100vh; 
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#asideInformationArea{  
+    display: none;
+    justify-content: space-between;
+    flex-direction: column;
+
+    background-color: #fff;
+    width: 300px;
+    height: 100vh;
 }
 
 #renderContainer{

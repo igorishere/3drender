@@ -1,5 +1,6 @@
  import './style/App.css';  
- import './style/App@500-800.css';  
+ import './style/App@500-1024.css';  
+ import './style/App@1024-x.css';  
  import { Object3D , BoxGeometry , MeshPhongMaterial,Mesh} from 'three';
  import Render from '../Render/Render'; 
 import logo from '../../assets/images/promob_logo_80x80.png';
@@ -16,7 +17,21 @@ var cube = CreateCube();
 let objectsToRender: Object3D[] = [cube];
 
    return (
-    <>
+    <div id="app">
+      <div id="asideInformationArea"> 
+        <div id="informationAreaText">
+          <div id="informationAreaBiggerText">
+            Lateral esquerda - LT0008A
+          </div>
+
+          <div id="informationAreaSmallerText">
+            <p>Cliente: Lorem Ipsum</p> 
+            <p>Projeto: Lorem Ipsum</p> 
+            <p>Data: 00/00/0000</p>
+          </div>
+        </div>
+        <img src={logo} alt="logo"/>
+      </div>
       <div id="renderContainer"> 
         <Render objects={objectsToRender}/> 
       </div> 
@@ -34,7 +49,7 @@ let objectsToRender: Object3D[] = [cube];
         </div>
         <img src={logo} alt="logo"/>
       </div>
-      </>   
+    </div>
   );
 }
 export default App;
