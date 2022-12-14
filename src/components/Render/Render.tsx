@@ -59,6 +59,34 @@ function Configure(){
             scene.add(object);
         });
     }
+
+    FitCameraToObject();
+  }
+
+  function FitCameraToObject(){
+    var offset = 0.5;
+
+    const boundingBox = new THREE.Box3();
+    var mainObject = objectsToRender[0];
+
+    boundingBox.setFromObject(mainObject);
+
+    const center = boundingBox.getCenter( new THREE.Vector3() );
+    const size = boundingBox.getSize( new THREE.Vector3() );
+
+    const startDistance = center.distanceTo(camera.position);
+
+    const endDistance = camera.aspect > 1 ?
+					((size.y/2)+offset) / Math.abs(Math.tan(camera.fov/2)) :
+					((size.y/2)+offset) / Math.abs(Math.tan(camera.fov/2)) / camera.aspect ;
+
+    camera.position.set(
+    camera.position.x * endDistance / startDistance,
+    camera.position.y * endDistance / startDistance,
+    camera.position.z * endDistance / startDistance,
+    );
+          
+    camera.lookAt(center);
   }
 
   function Animate(){
